@@ -21,10 +21,9 @@ def css() -> str:
 
 
 def card(title: str, text: str, image_path: str) -> str:
-    alt = html.escape(title)
     return f"""
             <article class="product-card">
-              <img src="{data_uri(image_path, 'image/png')}" alt="{alt}" />
+              <img src="{data_uri(image_path, 'image/png')}" alt="{html.escape(title)}" />
               <div class="product-card-body"><h3>{title}</h3><p>{text}</p></div>
             </article>"""
 
@@ -50,16 +49,38 @@ def main() -> None:
     <style>
 {css()}
       .site-nav a[href^="#"] {{ cursor: pointer; }}
-      .single-note {{
-        padding: 10px 5vw;
-        color: #ffffff;
-        background: #b7271f;
-        font-size: 14px;
+      @media (max-width: 720px) {{
+        .site-header {{
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 10px;
+          padding-top: 12px;
+          padding-bottom: 12px;
+        }}
+
+        .site-nav {{
+          position: static;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 8px;
+          width: 100%;
+          padding: 0;
+          border: 0;
+          background: transparent;
+          box-shadow: none;
+        }}
+
+        .site-nav a {{
+          padding: 8px 10px;
+          border: 1px solid rgba(23, 49, 76, 0.12);
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.72);
+        }}
       }}
     </style>
   </head>
   <body>
-    <div class="single-note">单文件展示版：图片和样式已内嵌，可直接发送此 HTML 文件给客户查看。</div>
     <header class="site-header">
       <a class="brand" href="#home" aria-label="温州全旺电气有限公司首页">
         <span class="brand-mark">QW</span>
@@ -84,6 +105,13 @@ def main() -> None:
           </div>
         </div>
       </section>
+
+      <div class="metric-strip" aria-label="公司核心能力">
+        <div class="metric"><strong>2024</strong><span>成立于浙江温州乐清</span></div>
+        <div class="metric"><strong>不锈钢</strong><span>配电箱/配电柜专业制造</span></div>
+        <div class="metric"><strong>定制</strong><span>支持各类机箱柜和非标箱</span></div>
+        <div class="metric"><strong class="qr-entry">扫码进入官网</strong><span>后续用正式网址生成二维码</span></div>
+      </div>
 
       <section class="section">
         <div class="section-inner split-layout">

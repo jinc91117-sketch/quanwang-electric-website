@@ -23,6 +23,7 @@ $requiredFiles = @(
   "products.html",
   "contact.html",
   "README.md",
+  "PRODUCT.md",
   ".gitignore",
   "quanwang-electric-single.html",
   "assets/styles.css",
@@ -74,5 +75,6 @@ Assert-True ($pages["single.html"] -match 'data:image/png;base64') "Single HTML 
 Assert-True ($pages["single.html"] -match 'tel:0577-58252365') "Single HTML missing phone link"
 Assert-True ($pages["single.html"] -match 'mailto:15167876572@163\.com') "Single HTML missing email link"
 Assert-True ($pages["single.html"] -notmatch 'href="assets/') "Single HTML still depends on asset links"
+Assert-True ($pages["single.html"] -notmatch '\?/(a|p|h2|h3|span|strong|li|div)>') "Detected malformed mojibake-adjacent HTML in single file"
 
 Write-Host "Site checks passed."
